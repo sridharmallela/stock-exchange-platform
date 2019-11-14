@@ -27,6 +27,12 @@ class TraderAdminControllerTest {
 
     @Test
     void findTraderByTraderId() {
+        given()
+        .accept(MediaType.APPLICATION_JSON_VALUE)
+        .when()
+        .get("/admin/traders/traderId/9")
+        .then()
+        .statusCode(HttpStatus.OK.value());    	
     }
 
     @Test
