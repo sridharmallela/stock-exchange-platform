@@ -31,3 +31,6 @@
  | Delete Trader | DELETE | `http://localhost:8080/admin/traders` | ``` { "traderId" : 3, "firstName": "Jamie", "lastName": "Moncayo",  "email": "123456@gmail.com", "phoneNum": "1236540987"  } ```|
  | Find Trader by email | GET | `http://localhost:8080/admin/traders/email/123456@gmail.com` | |
  | Find Trader by phoneNum | GET | `http://localhost:8080/admin/traders/phoneNum/123456@gmail.com` | |
+ 
+ ### change history
+ test new branch chunlei
