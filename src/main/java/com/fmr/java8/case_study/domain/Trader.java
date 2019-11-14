@@ -1,5 +1,7 @@
 package com.fmr.java8.case_study.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@JsonIgnoreProperties({"createdOn", "updatedOn"})
 public class Trader {
 
     @Id
