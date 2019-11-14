@@ -1,5 +1,6 @@
 package com.fmr.java8.case_study.controller;
 
+import com.fmr.java8.case_study.model.AppResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.ConversionFailedException;
@@ -23,8 +24,9 @@ public class ExceptionTranslator {
 
     @ExceptionHandler(ConversionFailedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> handleConversion(final RuntimeException ex) {
-        return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    @ResponseBody
+    public AppResponse handleConversion(final RuntimeException ex) {
+        return new AppResponse(ex.getMessage());
     }
 
 //    @ExceptionHandler(Inv.class)
@@ -36,7 +38,7 @@ public class ExceptionTranslator {
     @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public Map<String, String> processValidationError(final Exception ex) {
+    public AppResponse processValidationError(final Exception ex) {
         logger.error("Error occured during processing and error is ", ex);
         final Map<String, String> errors = new HashMap<String, String>();
         if (ex instanceof MethodArgumentNotValidException) {
@@ -48,14 +50,20 @@ public class ExceptionTranslator {
                 errors.put(error.getPropertyPath().toString(), error.getMessage());
             });
         }
-        return errors;
 
+        AppResponse app = new AppResponse(errors);
+
+        app.setMessage("Error Occured");
+        app.setErrors(ex.getMessage());
+
+        return app;
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<String> processRuntimeException(final Exception ex) {
+    @ResponseBody
+    public AppResponse processRuntimeException(final Exception ex) {
         logger.error("Error occured during processing and error is ", ex);
-        return new ResponseEntity<String>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new AppResponse(ex.getMessage());
     }
 }

@@ -1,5 +1,6 @@
 package com.fmr.java8.case_study.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
@@ -50,7 +51,7 @@ public class Address {
     private LocalDateTime updatedOn;
 
     @OneToOne(mappedBy = "address")
-    @JsonIgnore
+    @JsonBackReference
     private Trader trader;
 
     protected Address() {
