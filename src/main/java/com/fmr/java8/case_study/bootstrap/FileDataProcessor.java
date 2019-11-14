@@ -46,11 +46,11 @@ public class FileDataProcessor {
                 final FileData fd = fileData.nextValue();
                 logger.trace("---->" + fd.toString());
                 try {
-                    Double d = Double.valueOf(fd.getMoney());
-                    Address ad = new Address(fd.getStreet(), fd.getCity(), fd.getZip(), fd.getState(), "USA");
-                    Trader td = new Trader(fd.getFirstName(), fd.getLastName(), fd.getEmail(), fd.getPhoneNumber(), ad, fd.getAccountNumber(), d, d, null, null);
+                    final Double d = Double.valueOf(fd.getMoney());
+                    final Address ad = new Address(fd.getStreet(), fd.getCity(), fd.getZip(), fd.getState(), "USA");
+                    final Trader td = new Trader(fd.getFirstName(), fd.getLastName(), fd.getEmail(), fd.getPhoneNumber(), ad, fd.getAccountNumber(), d, d, null, null);
                     traderService.addTrader(td);
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     // do Nothing -- Skip to next record
                     logger.warn(">>>>>>>>> Not able to save data for " + fd.getFirstName() + " and Error is " + e.getMessage());
                 }
