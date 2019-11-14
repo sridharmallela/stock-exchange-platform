@@ -46,9 +46,6 @@ public class Address {
     @Column
     private LocalDateTime updatedOn;
 
-    @OneToOne(mappedBy = "address")
-    private Trader trader;
-
     protected Address() {
     }
 
@@ -103,10 +100,6 @@ public class Address {
         return updatedOn;
     }
 
-    public Trader getTrader() {
-        return trader;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
@@ -119,13 +112,12 @@ public class Address {
                    Objects.equals(state, address.state) &&
                    Objects.equals(country, address.country) &&
                    createdOn.equals(address.createdOn) &&
-                   Objects.equals(updatedOn, address.updatedOn) &&
-                   Objects.equals(trader, address.trader);
+                   Objects.equals(updatedOn, address.updatedOn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, street, city, zip, state, country, createdOn, updatedOn, trader);
+        return Objects.hash(id, street, city, zip, state, country, createdOn, updatedOn);
     }
 
     @Override
@@ -139,7 +131,6 @@ public class Address {
                    ", country='" + country + '\'' +
                    ", createdOn=" + createdOn +
                    ", updatedOn=" + updatedOn +
-                   ", trader=" + trader +
                    '}';
     }
 }
