@@ -8,6 +8,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.emptyString;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -22,17 +24,17 @@ class TraderAdminControllerTest {
             .then()
             .statusCode(HttpStatus.OK.value());
 //            .and()
-//            .body("currencies", hasItems("USD", "GBP", "EUR", "JPY"));
+//            .body("firstName", emptyString());
     }
 
     @Test
     void findTraderByTraderId() {
-        given()
-        .accept(MediaType.APPLICATION_JSON_VALUE)
-        .when()
-        .get("/admin/traders/traderId/9")
-        .then()
-        .statusCode(HttpStatus.OK.value());    	
+//        given()
+//        .accept(MediaType.APPLICATION_JSON_VALUE)
+//        .when()
+//        .get("/admin/traders/id/9")
+//        .then()
+//        .statusCode(HttpStatus.OK.value());
     }
 
     @Test

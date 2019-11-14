@@ -1,19 +1,20 @@
 package com.fmr.java8.case_study.service;
 
 import com.fmr.java8.case_study.domain.Trader;
+import com.fmr.java8.case_study.model.AppResponse;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface TraderService {
 
-    Trader addTrader(Trader trader);
+    AppResponse<Trader> addTrader(Trader trader);
 
-    List<Trader> getAllTraders();
+    AppResponse<List<Trader>> getAllTraders();
 
-    Optional<Trader> getTraderById(String id);
+    AppResponse<Optional<Trader>> getTraderById(String id);
 
-    List<Trader> getTraderByLastName(String name);
+    AppResponse<List<Trader>> getTraderByLastName(String name);
 
-    Trader removeTrader(Trader trader);
+    AppResponse<Trader> removeTrader(Trader trader);
 }
