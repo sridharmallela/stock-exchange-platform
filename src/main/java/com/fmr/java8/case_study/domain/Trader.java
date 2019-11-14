@@ -1,7 +1,5 @@
 package com.fmr.java8.case_study.domain;
 
-import lombok.Data;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +17,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-@Data
 @Entity
 public class Trader {
 
@@ -114,5 +112,101 @@ public class Trader {
     @PreUpdate
     public void preUpdate() {
         updatedOn = LocalDateTime.now();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public Double getAvailableBalance() {
+        return availableBalance;
+    }
+
+    public Double getTotalValue() {
+        return totalValue;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public Integer getNoOfPositions() {
+        return noOfPositions;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Trader)) return false;
+        final Trader trader = (Trader) o;
+        return id.equals(trader.id) &&
+                   firstName.equals(trader.firstName) &&
+                   lastName.equals(trader.lastName) &&
+                   email.equals(trader.email) &&
+                   phoneNum.equals(trader.phoneNum) &&
+                   accountNumber.equals(trader.accountNumber) &&
+                   availableBalance.equals(trader.availableBalance) &&
+                   Objects.equals(totalValue, trader.totalValue) &&
+                   Objects.equals(accountType, trader.accountType) &&
+                   Objects.equals(noOfPositions, trader.noOfPositions) &&
+                   createdOn.equals(trader.createdOn) &&
+                   Objects.equals(updatedOn, trader.updatedOn) &&
+                   Objects.equals(address, trader.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, phoneNum, accountNumber, availableBalance, totalValue, accountType, noOfPositions, createdOn, updatedOn, address);
+    }
+
+    @Override
+    public String toString() {
+        return "Trader{" +
+                   "id='" + id + '\'' +
+                   ", firstName='" + firstName + '\'' +
+                   ", lastName='" + lastName + '\'' +
+                   ", email='" + email + '\'' +
+                   ", phoneNum='" + phoneNum + '\'' +
+                   ", accountNumber='" + accountNumber + '\'' +
+                   ", availableBalance=" + availableBalance +
+                   ", totalValue=" + totalValue +
+                   ", accountType='" + accountType + '\'' +
+                   ", noOfPositions=" + noOfPositions +
+                   ", createdOn=" + createdOn +
+                   ", updatedOn=" + updatedOn +
+                   ", address=" + address +
+                   '}';
     }
 }

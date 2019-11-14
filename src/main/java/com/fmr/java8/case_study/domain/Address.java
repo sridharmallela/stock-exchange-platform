@@ -1,6 +1,5 @@
 package com.fmr.java8.case_study.domain;
 
-import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -13,8 +12,8 @@ import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-@Data
 @Entity
 public class Address {
 
@@ -70,5 +69,77 @@ public class Address {
     @PreUpdate
     public void preUpdate() {
         updatedOn = LocalDateTime.now();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public Trader getTrader() {
+        return trader;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Address)) return false;
+        final Address address = (Address) o;
+        return id.equals(address.id) &&
+                   Objects.equals(street, address.street) &&
+                   Objects.equals(city, address.city) &&
+                   zip.equals(address.zip) &&
+                   Objects.equals(state, address.state) &&
+                   Objects.equals(country, address.country) &&
+                   createdOn.equals(address.createdOn) &&
+                   Objects.equals(updatedOn, address.updatedOn) &&
+                   Objects.equals(trader, address.trader);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, street, city, zip, state, country, createdOn, updatedOn, trader);
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                   "id='" + id + '\'' +
+                   ", street='" + street + '\'' +
+                   ", city='" + city + '\'' +
+                   ", zip='" + zip + '\'' +
+                   ", state='" + state + '\'' +
+                   ", country='" + country + '\'' +
+                   ", createdOn=" + createdOn +
+                   ", updatedOn=" + updatedOn +
+                   ", trader=" + trader +
+                   '}';
     }
 }
