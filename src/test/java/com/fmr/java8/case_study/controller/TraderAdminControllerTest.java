@@ -17,6 +17,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fmr.java8.case_study.domain.Trader;
 
+import io.restassured.http.ContentType;
 import io.restassured.mapper.TypeRef;
 import io.restassured.response.Response;
 
@@ -36,7 +37,7 @@ class TraderAdminControllerTest {
             .when()
             .get("/admin/traders")
             .then()
-            .log().body()
+            //.log().body()
             .statusCode(HttpStatus.OK.value());
 //            .and()
 //            .body("firstName", emptyString());
@@ -44,12 +45,7 @@ class TraderAdminControllerTest {
 
     @Test
     void findTraderByTraderId() {
-//        given()
-//        .accept(MediaType.APPLICATION_JSON_VALUE)
-//        .when()
-//        .get("/admin/traders/id/9")
-//        .then()
-//        .statusCode(HttpStatus.OK.value());
+
     }
 
     @Test
@@ -59,30 +55,16 @@ class TraderAdminControllerTest {
 	    	given()
 	        .accept(MediaType.APPLICATION_JSON_VALUE)
 	        .when()
-	        .get("/admin/traders/name/Garrett")
+	        .get("/admin/traders/name/Carpenter")
 	        //.get("/admin/traders/name/Kloosterboer")	        
 	        .then()
 	        .log().body()
 	        .and().statusCode(HttpStatus.OK.value())
 	        .and().extract().as(new TypeRef<AppResponse<List<Trader>>>() {});
-        
-    	
-    	/*
-    	List<Trader> traders = new ObjectMapper().readValue(
-    			response.asString(), new TypeReference<List<Trader>>() { }
-    		);
-    	*/
-    	
 
         List<Trader> traders = response.getResponse();
         
-    	//Trader[] traders = response.as(Trader[].class);
-        //assertEquals(2, traders.length);
-        
-        assertEquals(1, traders.size());   
-    	//assertEquals(2, traders.length);
-        
-        
+        assertEquals(1, traders.size());         
         
     }
 
@@ -92,5 +74,62 @@ class TraderAdminControllerTest {
 
     @Test
     void deleteTrader() {
+    	
+    	
+    	AppResponse<List<Trader>> response =        
+    	    	given()
+    	        .accept(MediaType.APPLICATION_JSON_VALUE)
+    	        .when()
+    	        .get("/admin/traders/name/Garrett")
+    	        //.get("/admin/traders/name/Kloosterboer")	        
+    	        .then()
+    	        .log().body()
+    	        .and().statusCode(HttpStatus.OK.value())
+    	        .and().extract().as(new TypeRef<AppResponse<List<Trader>>>() {});
+            
+        	
+ 
+            List<Trader> traders = response.getResponse(); 
+            Trader trader = traders.get(0);
+    	
+    	
+    	
+        given()
+        .accept(MediaType.APPLICATION_JSON_VALUE)
+        .contentType(ContentType.JSON)
+        .request().body(trader)
+        .when()
+        .delete("/admin/traders")
+        .then()
+        .log().body()
+        .statusCode(HttpStatus.OK.value());
+	
+    	
+           	
+    	
+    	AppResponse<List<Trader>> response2 =        
+    	    	given()
+    	        .accept(MediaType.APPLICATION_JSON_VALUE)
+    	        .when()
+    	        .get("/admin/traders/name/Garrett")
+    	        //.get("/admin/traders/name/Kloosterboer")	        
+    	        .then()
+    	        .log().body()
+    	        .and().statusCode(HttpStatus.OK.value())
+    	        .and().extract().as(new TypeRef<AppResponse<List<Trader>>>() {});
+            
+        	
+            	
+
+            List<Trader> traders2 = response2.getResponse();
+            
+        	//Trader[] traders = response.as(Trader[].class);
+            //assertEquals(2, traders.length);
+            
+            assertEquals(0, traders2.size());   
+        	//assertEquals(2, traders.length);
+            
+            
+            
     }
 }
