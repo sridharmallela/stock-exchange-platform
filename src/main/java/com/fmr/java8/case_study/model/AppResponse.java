@@ -28,8 +28,16 @@ public class AppResponse<T> {
         return message;
     }
 
+    public void setResponse(final T response) {
+        this.response = response;
+    }
+
     public T getResponse() {
         return response;
+    }
+
+    public void setErrors(final String errors) {
+        this.errors = errors;
     }
 
     public String getErrors() {

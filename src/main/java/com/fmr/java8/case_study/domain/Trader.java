@@ -1,5 +1,8 @@
 package com.fmr.java8.case_study.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@JsonIgnoreProperties({"createdOn", "updatedOn"})
 public class Trader {
 
     @Id
@@ -85,6 +89,7 @@ public class Trader {
     @MapsId
     @Valid
     @JoinColumn(name = "traderId")
+    @JsonManagedReference
     private Address address;
 
     protected Trader() {

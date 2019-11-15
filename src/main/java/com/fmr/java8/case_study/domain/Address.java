@@ -1,5 +1,8 @@
 package com.fmr.java8.case_study.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Column;
@@ -15,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@JsonIgnoreProperties({"createdOn", "updatedOn"})
 public class Address {
 
     @Id
@@ -45,6 +49,10 @@ public class Address {
 
     @Column
     private LocalDateTime updatedOn;
+
+    @OneToOne(mappedBy = "address")
+    @JsonBackReference
+    private Trader trader;
 
     protected Address() {
     }
@@ -100,6 +108,10 @@ public class Address {
         return updatedOn;
     }
 
+    public Trader getTrader() {
+        return trader;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
@@ -112,12 +124,13 @@ public class Address {
                    Objects.equals(state, address.state) &&
                    Objects.equals(country, address.country) &&
                    createdOn.equals(address.createdOn) &&
-                   Objects.equals(updatedOn, address.updatedOn);
+                   Objects.equals(updatedOn, address.updatedOn) &&
+                   Objects.equals(trader, address.trader);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, street, city, zip, state, country, createdOn, updatedOn);
+        return Objects.hash(id, street, city, zip, state, country, createdOn, updatedOn, trader);
     }
 
     @Override
@@ -131,6 +144,7 @@ public class Address {
                    ", country='" + country + '\'' +
                    ", createdOn=" + createdOn +
                    ", updatedOn=" + updatedOn +
+                   ", trader=" + trader +
                    '}';
     }
 }
